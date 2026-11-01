@@ -542,6 +542,7 @@ Igual que en la Tarea 3, una decisión bien fundamentada tiene cuatro partes:
 Antes de calcular nada: ¿crees que el analista tiene razón? Escribe una frase.
 
 *Mi respuesta:*
+No, porque al final las posiciones de las velocidades nos permiten evaluar factores diferentes para el jugador dentro del equipo y no solo el valor de carrera. 
 
 ## Paso 2. Comprueba lo que dice el analista
 
@@ -559,7 +560,6 @@ cor(base$forty, base$career_av, use = "complete.obs")   # la correlación con to
 #
 modelo_velocidad <- lm(career_av ~ forty, data = base)  # la regresión del analista
 summary(modelo_velocidad)
- # knitr::kable(tabla_regresion(modelo_velocidad))          # la misma, en la tabla de la clase
 ```
 
 ## Paso 3. Busca más evidencia
@@ -576,6 +576,7 @@ arrange(tiempo_mediano)                                    # de los más rápido
 ```
 
 ¿Qué posición es la más lenta? ¿Cómo es su valor de carrera comparado con el de las demás?
+OL pero tienen el valor de carrera más alto
 
 **b) La correlación dentro de cada posición.** Compara a cada jugador solo con los de su misma posición. Completa el `___` y quita los `#`:
 
@@ -587,13 +588,13 @@ arrange(correlacion)                                               # de la más 
 ```
 
 ¿Cuántas de las ocho posiciones tienen una correlación negativa? ¿Qué significa ese signo, en palabras?
+Todas tienen una correlación negativa y eso significa que cuando una variable sube la otra baja en este caso a mas segundos menor valor.
 
 **c) Una regresión con la posición.** Agrega la posición al modelo del analista. Cuando una variable es de texto, como `simple_pos`, `lm()` le da un coeficiente a cada posición, comparada con la primera en orden alfabético (`DB`), que no aparece en la tabla. Quita los `#`:
 
 ```{r}
 modelo_velocidad_pos <- lm(career_av ~ forty + simple_pos, data = base)
 summary(modelo_velocidad_pos)
-# knitr::kable(tabla_regresion(modelo_velocidad_pos))
 ```
 
 Lee el coeficiente de `forty`: ¿qué signo tiene ahora, qué valor p y cuántas estrellas? Escribe en una frase qué significa, a igualdad de posición, ser una décima de segundo más rápido (`forty` baja 0.1).
@@ -607,8 +608,8 @@ Lee el coeficiente de `forty`: ¿qué signo tiene ahora, qué valor p y cuántas
 
 ```{r, fig.width = 9, fig.height = 5}
 ggplot(base, aes(x = forty, y = career_av)) +
-geom_point(color = "#2a78d6", alpha = 0.2) +                  # cada jugador
-geom_smooth(method = "lm", se = FALSE, color = "#eb6834") +  # la recta de cada posición
+geom_point(color = "#ffc5d3", alpha = 0.2) +                  # cada jugador
+geom_smooth(method = "lm", se = FALSE, color = "#e89") +  # la recta de cada posición
 facet_wrap(~ simple_pos) +                                   # un panel por posición
 labs(x = "Tiempo en 40 yardas (segundos)", y = "Valor de carrera (career_av)") +
 theme_minimal()
@@ -619,9 +620,13 @@ theme_minimal()
 Responde al analista con las cuatro partes. Usa **tus** números de los pasos 2 y 3.
 
 - **Decisión:**
+El tiempo de 40 yardas si muestra un valor en la tabla por lo tanto es mejor mantenerlo.
 - **Evidencia:**
+Al utilizar los valor por posición podemos ver una correlación entre todas las posiciones y el valor de carrera.
 - **Razonamiento:**
+Al inicio no se ve que ser más rapido si suma a su valor de carrera sin embargo después podemos observar que es un factor que si afecta el resultado.
 - **Límite:**
+Un valor de tiempo no significa por si solo que haya mas o menos valor de carrera o desempeño para el jugador.
 
 **Para entregar:**
 
